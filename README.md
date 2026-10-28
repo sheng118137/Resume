@@ -1,4 +1,4 @@
-# Hi there, I'm 廖英盛 (Liao Ying-Sheng) 👋
+# Hi there, I'm 廖英盛 (Liao Ying-Sheng)!
 
 ### 全端軟體工程師 (Full-Stack Engineer) ｜ C# ASP.NET Core & Vue.js & WinForms
 
@@ -11,7 +11,7 @@
 
 ---
 
-## 🛠 技術能力 (Tech Stack)
+## 技術能力 (Tech Stack)
 
 ### 後端與桌面應用開發 (Backend & Desktop)
 ![C#](https://img.shields.io/badge/C%23-239120?style=flat-square&logo=csharp&logoColor=white)
@@ -38,7 +38,7 @@
 
 ---
 
-## 💻 代表軟體開發專題 (Featured Projects)
+## 代表軟體開發專題 (Featured Projects)
 
 ### 1. [書嶼 BookISLE — 前後端分離線上書店電商平台](https://github.com/sheng118137/BookISLE)
 - **擔任角色**：團隊專題組長 ＆ 核心架構開發
