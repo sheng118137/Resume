@@ -1,0 +1,7 @@
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Unused raw photos in static folder (only avatar.png and avatar-default.svg are used by index.html)
+static/IMG_*.jpg

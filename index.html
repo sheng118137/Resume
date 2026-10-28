@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>廖英盛 (Liao Ying-Sheng) | 全端軟體工程師履歷</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google Fonts: Noto Sans TC & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <!-- QRCode SVG Generator -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+    <!-- html2pdf.js for one-click direct PDF file download -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <style>
+        :root {
+            --primary-navy: #162844;
+            --secondary-navy: #243b61;
+            --accent-blue: #2563eb;
+            --accent-light: #eff6ff;
+            --text-main: #1e293b;
+            --text-secondary: #334155;
+            --text-muted: #64748b;
+            --border-color: #cbd5e1;
+            --badge-bg: #f1f5f9;
+            --badge-text: #1e3a5f;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            color: var(--text-main);
+            background-color: #dce2e9;
+            margin: 0;
+            padding: 0;
+            font-size: 12.2px;
+            line-height: 1.42;
+        }
+
+        /* 頂部操作工具列 (列印時自動隱藏) */
+        .control-bar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(22, 40, 68, 0.96);
+            backdrop-filter: blur(8px);
+            color: #fff;
+            padding: 8px 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        /* A4 紙張外部容器 */
+        .resume-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 12px 40px;
+            gap: 20px;
+            transform-origin: top center;
+            transition: transform 0.2s ease;
+        }
+
+        /* 嚴格鎖定標準 A4 尺寸 (210mm x 297mm)，所見即所得，絕不超出 A4 */
+        .resume-page {
+            width: 210mm;
+            height: 297mm;
+            min-height: 297mm;
+            max-height: 297mm;
+            background: #ffffff;
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.14);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 單頁模式時隱藏第二頁 */
+        body.mode-single-page #page-2 {
+            display: none !important;
+        }
+
+        /* Header 樣式 (緊湊專業比例) */
+        .resume-header {
+            background: linear-gradient(135deg, var(--primary-navy) 0%, var(--secondary-navy) 100%);
+            color: #ffffff;
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-shrink: 0;
+        }
+
+        .avatar-wrapper {
+            width: 86px;
+            height: 112px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.85);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+            flex-shrink: 0;
+            cursor: pointer;
+            position: relative;
+            background-color: #243b61;
+        }
+
+        .avatar-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 18%;
+            display: block;
+        }
+
+        .avatar-hover-tip {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+            color: #fff;
+            font-size: 10.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.2s;
+            padding: 4px;
+        }
+
+        .avatar-wrapper:hover .avatar-hover-tip {
+            opacity: 1;
+        }
+
+        .header-main {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .header-name {
+            font-size: 21px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin: 0 0 2px 0;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+
+        .header-name .en-name {
+            font-size: 13.5px;
+            font-weight: 500;
+            opacity: 0.88;
+        }
+
+        .header-title {
+            font-size: 12.8px;
+            font-weight: 600;
+            color: #93c5fd;
+            margin-bottom: 5px;
+            letter-spacing: 0.2px;
+        }
+
+        .header-summary {
+            font-size: 11.3px;
+            color: rgba(255, 255, 255, 0.92);
+            line-height: 1.42;
+            margin: 0;
+            text-align: justify;
+        }
+
+        .header-contact {
+            font-size: 11.2px;
+            line-height: 1.62;
+            text-align: right;
+            flex-shrink: 0;
+            border-left: 1px solid rgba(255, 255, 255, 0.22);
+            padding-left: 14px;
+        }
+
+        .header-contact a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .header-contact a:hover {
+            text-decoration: underline;
+        }
+
+        /* 內容主體雙欄配置 */
+        .resume-body {
+            padding: 14px 24px 16px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .section-title {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: var(--primary-navy);
+            border-bottom: 1.8px solid var(--primary-navy);
+            padding-bottom: 3px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            letter-spacing: 0.2px;
+        }
+
+        .sidebar-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--primary-navy);
+            border-bottom: 1.5px solid #cbd5e1;
+            padding-bottom: 3px;
+            margin-bottom: 7px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* 技能標籤 */
+        .skill-group {
+            margin-bottom: 8px;
+        }
+
+        .skill-group-name {
+            font-size: 11.4px;
+            font-weight: 700;
+            color: #334155;
+            margin-bottom: 3px;
+        }
+
+        .skill-badge {
+            display: inline-block;
+            background-color: var(--badge-bg);
+            color: var(--badge-text);
+            border: 1px solid #dbe3ed;
+            font-size: 10.8px;
+            font-weight: 500;
+            padding: 1px 6px;
+            border-radius: 4px;
+            margin-bottom: 3px;
+            margin-right: 2px;
+        }
+
+        .skill-badge.highlight {
+            background-color: #e0ecff;
+            border-color: #b9d3ff;
+            color: #163a70;
+            font-weight: 600;
+        }
+
+        /* 專案卡片與 QR Code */
+        .project-card {
+            border: 1px solid #dbe3ed;
+            border-radius: 5px;
+            padding: 8px 11px;
+            margin-bottom: 8px;
+            background-color: #ffffff;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 2px;
+        }
+
+        .project-name {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--primary-navy);
+        }
+
+        .project-role-badge {
+            font-size: 10.5px;
+            font-weight: 600;
+            background-color: var(--accent-light);
+            color: var(--accent-blue);
+            border: 1px solid #bfdbfe;
+            padding: 1px 6px;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+
+        .project-subline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+            padding-bottom: 3px;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+
+        .project-content-wrap {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .project-bullets {
+            flex: 1;
+            margin: 0;
+            padding-left: 15px;
+        }
+
+        .project-bullets li {
+            font-size: 11.5px;
+            line-height: 1.38;
+            margin-bottom: 2.5px;
+            color: var(--text-secondary);
+        }
+
+        .project-bullets li:last-child {
+            margin-bottom: 0;
+        }
+
+        .project-bullets li strong {
+            color: var(--text-main);
+        }
+
+        /* QR Code 卡片 */
+        .qr-box {
+            width: 64px;
+            flex-shrink: 0;
+            text-align: center;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 4px 3px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qr-svg-container {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qr-svg-container svg {
+            width: 100% !important;
+            height: 100% !important;
+            display: block;
+        }
+
+        .qr-caption {
+            font-size: 9px;
+            color: var(--text-muted);
+            margin-top: 2px;
+            line-height: 1.1;
+        }
+
+        /* 經歷與學歷項目 */
+        .timeline-item {
+            margin-bottom: 7px;
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+        }
+
+        .timeline-title {
+            font-weight: 700;
+            font-size: 12.2px;
+            color: var(--text-main);
+        }
+
+        .timeline-org {
+            font-weight: 600;
+            font-size: 11.4px;
+            color: var(--secondary-navy);
+        }
+
+        .timeline-date {
+            font-size: 10.8px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .timeline-list {
+            padding-left: 15px;
+            margin: 2px 0 0 0;
+        }
+
+        .timeline-list li {
+            font-size: 11.4px;
+            color: var(--text-secondary);
+            line-height: 1.38;
+            margin-bottom: 2px;
+        }
+
+        .award-item {
+            font-size: 11.2px;
+            margin-bottom: 4px;
+            line-height: 1.35;
+            color: var(--text-secondary);
+        }
+
+        .award-item strong {
+            color: var(--text-main);
+        }
+
+        /* 第二頁專屬樣式 */
+        .page-2-header {
+            background: var(--primary-navy);
+            color: #fff;
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .bio-card {
+            background: #f8fafc;
+            border-left: 3.5px solid var(--primary-navy);
+            padding: 12px 16px;
+            border-radius: 0 6px 6px 0;
+            margin-bottom: 10px;
+            font-size: 12px;
+            line-height: 1.58;
+            color: var(--text-secondary);
+        }
+
+        /* 列印專用規則 (確保 100% 貼合 A4 單頁、無溢位空白頁) */
+        @page {
+            size: A4 portrait;
+            margin: 0;
+        }
+
+        @media print {
+
+            html,
+            body {
+                width: 210mm !important;
+                background-color: #ffffff !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            .resume-container {
+                padding: 0 !important;
+                margin: 0 !important;
+                gap: 0 !important;
+                display: block !important;
+                transform: none !important;
+            }
+
+            .resume-page {
+                width: 210mm !important;
+                height: 297mm !important;
+                min-height: 297mm !important;
+                max-height: 297mm !important;
+                margin: 0 !important;
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                overflow: hidden !important;
+                page-break-after: always;
+                break-after: page;
+            }
+
+            .resume-page:last-child,
+            body.mode-single-page #page-1 {
+                page-break-after: auto !important;
+                break-after: auto !important;
+            }
+        }
+    </style>
+</head>
+
+<!-- 預設採用業界資深工程師最推薦的「單頁 A4 標準版」 -->
+
+<body class="mode-single-page">
+
+    <!-- 頂部控制列 (列印與轉存 PDF 時自動隱藏) -->
+    <div class="control-bar no-print">
+        <div class="container-fluid d-flex flex-wrap justify-content-between align-items-center gap-2"
+            style="max-width: 1140px;">
+            <div class="d-flex align-items-center gap-2">
+                <span class="badge bg-primary">A4 標準尺寸鎖定</span>
+                <span class="fw-bold small">廖英盛 全端工程師履歷</span>
+                <span class="text-white-50 small d-none d-lg-inline">| 210mm × 297mm 精準排版</span>
+            </div>
+
+            <div class="d-flex flex-wrap align-items-center gap-2">
+                <!-- 螢幕預覽縮放 (不影響實際 A4 列印尺寸) -->
+                <div class="btn-group btn-group-sm d-none d-md-inline-flex" role="group" title="調整螢幕預覽顯示大小，列印時自動維持標準A4">
+                    <button type="button" class="btn btn-outline-light active" id="zoom100"
+                        onclick="setZoom(1)">100%</button>
+                    <button type="button" class="btn btn-outline-light" id="zoom85" onclick="setZoom(0.85)">85%
+                        適應螢幕</button>
+                </div>
+
+                <!-- 單頁 / 雙頁模式切換 -->
+                <div class="btn-group btn-group-sm" role="group" aria-label="Page mode toggle">
+                    <button type="button" class="btn btn-light fw-bold text-dark" id="btnSinglePage"
+                        onclick="setPageMode('single')">
+                        <i class="bi bi-file-earmark-check me-1"></i>單頁標準版 (1P A4 推薦)
+                    </button>
+                    <button type="button" class="btn btn-outline-light" id="btnTwoPage" onclick="setPageMode('two')">
+                        <i class="bi bi-files me-1"></i>加附自傳頁 (2P A4)
+                    </button>
+                </div>
+
+                <!-- 更換照片按鈕 -->
+                <button type="button" class="btn btn-sm btn-outline-info text-white"
+                    onclick="document.getElementById('avatarInput').click()">
+                    <i class="bi bi-camera me-1"></i>更換照片
+                </button>
+                <input type="file" id="avatarInput" accept="image/*" class="d-none"
+                    onchange="handleAvatarUpload(event)">
+
+                <!-- 編輯 QR Code 連結按鈕 -->
+                <button type="button" class="btn btn-sm btn-outline-warning text-white" data-bs-toggle="modal"
+                    data-bs-target="#qrModal">
+                    <i class="bi bi-qr-code me-1"></i>設定作品網址
+                </button>
+
+                <!-- 匯出 PDF 按鈕組 -->
+                <button type="button" class="btn btn-sm btn-success fw-bold px-3" onclick="window.print()"
+                    title="文字可選取、向量最高畫質，請於列印視窗確認紙張為 A4、邊界為無">
+                    <i class="bi bi-printer-fill me-1"></i>A4 列印 / 另存 PDF
+                </button>
+                <button type="button" class="btn btn-sm btn-primary fw-bold" onclick="downloadDirectPDF()"
+                    id="btnDownloadPdf">
+                    <i class="bi bi-download me-1"></i>直接下載 PDF
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="resume-container" id="resumeRoot">
+
+        <!-- ==================== 第一頁：全端技術、核心專題與重點經歷 (標準單頁 A4) ==================== -->
+        <div class="resume-page" id="page-1">
+            <!-- 頂部 Header -->
+            <header class="resume-header">
+                <div class="avatar-wrapper" onclick="document.getElementById('avatarInput').click()" title="點擊更換個人照片">
+                    <img id="avatarImg" src="./static/avatar.png"
+                        onerror="this.onerror=null; this.src='./static/avatar-default.svg';" alt="廖英盛 個人照">
+                    <div class="avatar-hover-tip no-print">點擊更換<br>個人照片</div>
+                </div>
+
+                <div class="header-main">
+                    <h1 class="header-name">
+                        廖英盛
+                        <span class="en-name">Liao Ying-Sheng</span>
+                    </h1>
+                    <div class="header-title">
+                        全端軟體工程師 (Full-Stack Engineer) ｜ C# .NET Core &amp; Vue.js
+                    </div>
+                    <p class="header-summary">
+                        具備在職系統維護優化實績與 6 年大型科技展會、政府數位專案統籌經驗。曾於台北市電腦公會任職期間以 <strong>ASP.NET MVC + MS SQL Server</strong>
+                        維護並優化展期活動系統（服務逾 5
+                        萬參觀人次）；後於<strong>資策會 (III)、資展國際(ISpan)全端班</strong>完成高強度實戰培訓並擔任<strong>結訓專題組長</strong>，擅長需求分析、關聯式資料庫設計與前後端分離架構開發。
+                    </p>
+                </div>
+
+                <div class="header-contact">
+                    <div><i class="bi bi-telephone-fill me-1"></i> <a href="tel:0989270710">0989-270-710</a></div>
+                    <div><i class="bi bi-envelope-fill me-1"></i> <a
+                            href="mailto:shengliao379@gmail.com">shengliao379@gmail.com</a></div>
+                    <div><i class="bi bi-github me-1"></i> <a id="headerGithubLink"
+                            href="https://github.com/sheng118137/Resume"
+                            target="_blank">github.com/sheng118137/Resume</a></div>
+                    <div><i class="bi bi-geo-alt-fill me-1"></i>求職地點：高雄 / 台南 / 遠端</div>
+                </div>
+            </header>
+
+            <!-- 第一頁主體內容 -->
+            <div class="resume-body">
+                <div class="row g-3 flex-grow-1 m-0">
+
+                    <!-- 左側欄：核心技術棧、培訓學歷、獲獎亮點 (34%) -->
+                    <div class="col-4 border-end ps-0 pe-3 d-flex flex-column justify-content-between">
+                        <div>
+                            <!-- 核心技術能力 -->
+                            <div class="mb-2">
+                                <h2 class="sidebar-title"><i class="bi bi-code-slash"></i> 技術能力 (Tech Stack)</h2>
+
+                                <div class="skill-group">
+                                    <div class="skill-group-name">後端開發 (Backend)</div>
+                                    <span class="skill-badge highlight">C#</span>
+                                    <span class="skill-badge highlight">ASP.NET Core MVC</span>
+                                    <span class="skill-badge highlight">RESTful Web API</span>
+                                    <span class="skill-badge highlight">Entity Framework Core</span>
+                                    <span class="skill-badge">LINQ</span>
+                                    <span class="skill-badge">ADO.NET</span>
+                                    <span class="skill-badge">WinForms</span>
+                                </div>
+
+                                <div class="skill-group">
+                                    <div class="skill-group-name">前端開發 (Frontend)</div>
+                                    <span class="skill-badge highlight">Vue 3 (Vite / Pinia)</span>
+                                    <span class="skill-badge">JavaScript (ES6+)</span>
+                                    <span class="skill-badge">Axios</span>
+                                    <span class="skill-badge">Bootstrap 5</span>
+                                    <span class="skill-badge">HTML5 / CSS3</span>
+                                </div>
+
+                                <div class="skill-group">
+                                    <div class="skill-group-name">資料庫 (Database)</div>
+                                    <span class="skill-badge highlight">MS SQL Server</span>
+                                    <span class="skill-badge">T-SQL</span>
+                                    <span class="skill-badge">Schema 正規化設計</span>
+                                    <span class="skill-badge">Transaction 交易控管</span>
+                                </div>
+
+                                <div class="skill-group">
+                                    <div class="skill-group-name">系統整合與工具 (Tools &amp; API)</div>
+                                    <span class="skill-badge highlight">Git / GitHub Flow</span>
+                                    <span class="skill-badge highlight">Gemini AI API</span>
+                                    <span class="skill-badge highlight">綠界金流 (ECPay)</span>
+                                    <span class="skill-badge">Postman</span>
+                                    <span class="skill-badge">Docker / Redis</span>
+                                    <span class="skill-badge">Antigravity / Ollama</span>
+
+                                </div>
+                            </div>
+
+                            <!-- 專業培訓與學歷 -->
+                            <div class="mb-2">
+                                <h2 class="sidebar-title"><i class="bi bi-mortarboard-fill"></i> 專業培訓與學歷</h2>
+
+                                <div class="timeline-item">
+                                    <div class="timeline-title">資策會 (III)、資展國際(ISpan)</div>
+                                    <div class="timeline-org">全端網頁開發工程師養成班 159 期</div>
+                                    <div class="timeline-date">2026/06 ~ 2026/11</div>
+                                    <div class="text-secondary mt-1" style="font-size: 11px; line-height: 1.35;">
+                                        近半年全日制實戰培訓，修習 C#、MSSQL、ASP.NET Core 與 Vue 3 前後端分離架構；<strong>擔任結訓專題組長</strong>。
+                                    </div>
+                                </div>
+
+                                <div class="timeline-item">
+                                    <div class="timeline-title">國立虎尾科技大學</div>
+                                    <div class="timeline-org">休閒遊憩系 碩士 &amp; 學士</div>
+                                    <div class="timeline-date">碩士 2019~2021 ｜ 學士 2015~2019</div>
+                                    <div class="text-secondary mt-1" style="font-size: 11px; line-height: 1.35;">
+                                        碩士期間主導經濟部 SBIR 科技數位旅遊計畫，奠定數位產品規劃與研究分析基礎。
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 競賽榮譽 -->
+                            <div>
+                                <h2 class="sidebar-title"><i class="bi bi-trophy-fill"></i> 獲獎紀錄</h2>
+                                <div class="award-item">
+                                    <i
+                                        class="bi bi-award-fill text-warning me-1"></i><strong>數位發展部「創業歸故里競賽」</strong><br>
+                                    全國亞軍 ＆ 服務推廣獎（智慧科技場域應用）
+                                </div>
+                                <div class="award-item mb-0">
+                                    <i class="bi bi-award-fill text-warning me-1"></i><strong>教育部青年發展署全國競賽</strong><br>
+                                    全國優秀企劃設計獎 ＆ 夢想實踐家亞軍
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 作品集 QR Code 總覽區 -->
+                        <div class="border rounded p-2 bg-light d-flex align-items-center gap-2 mt-1">
+                            <div id="qrResume" class="qr-svg-container" style="width: 44px; height: 44px;"></div>
+                            <div style="font-size: 10.5px; line-height: 1.3;">
+                                <div class="fw-bold text-dark"><i class="bi bi-github me-1"></i>GitHub 線上履歷與作品集</div>
+                                <a id="sidebarGithubLink" href="https://github.com/sheng118137/Resume" target="_blank"
+                                    class="text-decoration-none text-primary" style="word-break: break-all;">
+                                    github.com/sheng118137/Resume
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 右側欄：代表軟體專題作品 + 核心工作經歷 (66%) -->
+                    <div class="col-8 ps-3 pe-0 d-flex flex-column justify-content-between">
+                        <div>
+                            <!-- 代表軟體專案作品 -->
+                            <section class="mb-2">
+                                <h2 class="section-title"><i class="bi bi-laptop"></i> 軟體開發專題作品 (Software Projects)</h2>
+
+                                <!-- 專題 1：書嶼 BookISLE -->
+                                <div class="project-card">
+                                    <div class="project-header">
+                                        <span class="project-name">1. 書嶼 BookISLE — 前後端分離線上書店電商平台</span>
+                                        <span class="project-role-badge">團隊專題｜組長 &amp; 核心架構</span>
+                                    </div>
+                                    <div class="project-subline">
+                                        <span><strong>技術棧：</strong>Vue 3 (Vite/Pinia)、ASP.NET Core MVC &amp; Web API、EF
+                                            Core、MSSQL、Gemini API、綠界 ECPay</span>
+                                        <a id="linkProject1" href="https://github.com/sheng118137/BookISLE"
+                                            target="_blank" class="text-decoration-none text-primary fw-medium ms-1"
+                                            style="white-space: nowrap;"><i class="bi bi-github me-1"></i>Repo</a>
+                                    </div>
+                                    <div class="project-content-wrap">
+                                        <ul class="project-bullets">
+                                            <li><strong>架構統籌與 Git 版控規範</strong>：擔任組長制定 Git Flow 分支管理與 RESTful API
+                                                介面規格，主導底層架構建置、資料庫整合與跨模組除錯支援。</li>
+                                            <li><strong>無限階層分類與動態麵包屑</strong>：採用<strong>資料表自我關聯
+                                                    (Self-Referencing)</strong> 結構設計，結合遞迴查詢與反向排序演算法，實作多層級分類管理與前台動態麵包屑導覽。
+                                            </li>
+                                            <li><strong>第三方金流驗簽與交易一致性</strong>：串接<strong>綠界金流 (ECPay)</strong> 刷卡流程與
+                                                Server 端回傳驗簽機制，確保付款授權成功後自動更新訂單狀態並精準扣減庫存。</li>
+                                            <li><strong>AI 智慧客服與評論權限控管</strong>：整合 <strong>Google Gemini API</strong>
+                                                實作自然語言找書推薦與即時訂單查詢客服；開發商品 CRUD 模組、登入限定評論驗證與後台精選管理功能。</li>
+                                        </ul>
+                                        <div class="qr-box">
+                                            <div id="qrProject1" class="qr-svg-container"></div>
+                                            <div class="qr-caption">BookISLE</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 專題 2：Smart Coffee System -->
+                                <div class="project-card mb-1">
+                                    <div class="project-header">
+                                        <span class="project-name">2. Smart Coffee System — 咖啡廳 POS 與後台管理系統</span>
+                                        <span class="project-role-badge">個人專題｜獨立全端開發</span>
+                                    </div>
+                                    <div class="project-subline">
+                                        <span><strong>技術棧：</strong>C#、WinForms、Entity Framework、ADO.NET、LINQ、MS SQL
+                                            Server</span>
+                                        <a id="linkProject2" href="https://github.com/sheng118137/SmartCoffeeSystem"
+                                            target="_blank" class="text-decoration-none text-primary fw-medium ms-1"
+                                            style="white-space: nowrap;"><i class="bi bi-github me-1"></i>Repo</a>
+                                    </div>
+                                    <div class="project-content-wrap">
+                                        <ul class="project-bullets">
+                                            <li><strong>客製化計價引擎與會員系統</strong>：實作 POS
+                                                收銀點餐流程，支援飲品甜度、冰塊、加料動態計價邏輯，並整合會員分級折扣與消費積分累點／折抵機制。</li>
+                                            <li><strong>混合資料存取與關聯完整性</strong>：結合 EF + LINQ 與 ADO.NET 開發商品、分類、會員與訂單完整
+                                                CRUD；設計嚴謹之外鍵約束 (Foreign Key) 與防呆驗證，防止誤刪關聯資料。</li>
+                                            <li><strong>RBAC 權限控管與營運報表</strong>：運用 LINQ
+                                                彙整銷售數據繪製視覺化營收圖表；實作多角色權限隔離（店長／店員）與
+                                                T-SQL 一鍵式資料庫備份功能。</li>
+                                        </ul>
+                                        <div class="qr-box">
+                                            <div id="qrProject2" class="qr-svg-container"></div>
+                                            <div class="qr-caption">SmartCoffee</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <!-- 專業工作經歷 (聚焦在職開發與專案管理轉化) -->
+                            <section>
+                                <h2 class="section-title"><i class="bi bi-briefcase-fill"></i> 工作經歷與實務開發 (Work
+                                    Experience)</h2>
+
+                                <!-- 經歷 1：台北市電腦商業同業公會 -->
+                                <div class="timeline-item">
+                                    <div class="timeline-header">
+                                        <div>
+                                            <span class="timeline-title">高雄智慧城市展 專案企劃 ＆ 活動網站維護優化</span>
+                                            <span class="timeline-org ms-1">｜台北市電腦商業同業公會 (TCA)</span>
+                                        </div>
+                                        <span class="timeline-date">2023/02 ~ 2026/06 (3 年 5 個月)</span>
+                                    </div>
+                                    <ul class="timeline-list">
+                                        <li><strong>在職系統維護與功能優化（2025 KSCSE
+                                                展期活動系統）</strong>：為解決展期高頻率資訊異動與即時查詢痛點，主動接手既有官方網站與研討會管理系統等，進行維護與架構優化，運用
+                                            <strong>C#
+                                                ASP.NET MVC、MS SQL Server、jQuery/Ajax、Bootstrap 5</strong>
+                                            修正資料存取邏輯與前端顯示，穩定服務逾 50,000 名展會參觀者。</li>
+                                        <li><strong>B2B 跨界需求收斂與大型專案控管</strong>：主責 3 屆展會與 75+
+                                            場專業論壇統籌，對接日月光、叡揚資訊等上市櫃科技大廠與政府單位，具備將業務方需求快速轉化為系統規格與時程控管之實務能力。</li>
+                                    </ul>
+                                </div>
+
+                                <!-- 經歷 2：承鴻企業行 -->
+                                <div class="timeline-item mb-0">
+                                    <div class="timeline-header">
+                                        <div>
+                                            <span class="timeline-title">專案管理主管 (主企劃)</span>
+                                            <span class="timeline-org ms-1">｜承鴻企業行</span>
+                                        </div>
+                                        <span class="timeline-date">2022/02 ~ 2023/01 (1 年)</span>
+                                    </div>
+                                    <ul class="timeline-list">
+                                        <li><strong>數位轉型標案規劃與專案交付</strong>：主導經濟部數位群聚計畫與標案規格書撰寫、預算控管及結案驗收；主持「古坑桌球村」智慧科技場域活化專案，於全國
+                                            104
+                                            個團隊中榮獲數位發展部<strong>全國亞軍及服務推廣獎</strong>。</li>
+                                    </ul>
+                                </div>
+                            </section>
+                        </div>
+
+                        <!-- 底部核心競爭力總結條 -->
+                        <div class="border-top pt-2 mt-1 d-flex justify-content-between align-items-center text-secondary"
+                            style="font-size: 11px;">
+                            <div><i
+                                    class="bi bi-check2-circle text-primary me-1"></i><strong>工程實戰：</strong>具備獨立完成資料庫設計、後端
+                                API 開發至前端串接之完整交付能力</div>
+                            <div><i class="bi bi-people-fill text-primary me-1"></i><strong>跨域優勢：</strong>6 年 PM
+                                需求訪談與團隊領導經驗，能精準對齊商業邏輯、降低溝通成本</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== 第二頁（選用）：精簡版自傳與關鍵專案實績 ==================== -->
+        <div class="resume-page" id="page-2">
+            <div class="page-2-header">
+                <div class="fw-bold" style="font-size: 14.5px;">
+                    <i class="bi bi-person-lines-fill me-2"></i>廖英盛 (Liao Ying-Sheng) ｜ 軟體工程師自傳與專案實績補充
+                </div>
+                <div class="small opacity-75">Page 2 of 2</div>
+            </div>
+
+            <div class="resume-body">
+                <!-- 轉職自傳與職涯定位 (資深工程師視角精煉版) -->
+                <section class="mb-3">
+                    <h2 class="section-title"><i class="bi bi-chat-square-quote-fill"></i> 自傳與工程職涯定位 (Autobiography)
+                    </h2>
+
+                    <div class="bio-card">
+                        <p class="mb-2">
+                            <strong>一、從業務痛點出發的開發者：在職維護與優化展會系統，確立軟體工程職涯</strong><br>
+                            您好，我是廖英盛。過去於<strong>台北市電腦商業同業公會 (TCA)</strong> 負責「高雄智慧城市展」專案統籌期間，面對超過 5 萬名參觀人次與 75
+                            場以上專業論壇的資訊發布需求，展期常面臨即時且高頻率的議程異動。為解決維護痛點並提升資訊即時性，我主動協助既有官網的架構優化與功能修正，運用 <strong>C# ASP.NET
+                                MVC、MS SQL
+                                Server、jQuery/Ajax 與 Bootstrap 5</strong>
+                            調整資料存取邏輯與前端顯示。這次在職維護與優化系統的實戰經驗，讓我深刻體會到「以軟體工程規模化解決業務痛點」的價值，也促使我決定全職投入軟體工程領域。
+                        </p>
+
+                        <p class="mb-2">
+                            <strong>二、資策會全端實戰與組長歷練：掌握 .NET Core 與 Vue 3 前後端分離架構</strong><br>
+                            為建立系統化的軟體工程底層基礎，我投入<strong>資策會 (III)、資展國際(ISpan)全端網頁開發工程師養成班（第 159 期）</strong>進行 6
+                            個月全日制密集訓練，期間完成兩項具體實戰作品：
+                        </p>
+
+                        <ul class="mb-2 ps-3">
+                            <li class="mb-2">
+                                <strong>團隊專案《書嶼 BookISLE 線上書店電商平台》（擔任組長 &amp; 核心架構開發）</strong>：採用
+                                <code>Vue 3 (Vite / Pinia) + ASP.NET Core Web API + EF Core + SQL Server</code>
+                                前後端分離架構。我負責專案底層架構規劃、Git
+                                分支協作規範制定與 RESTful API 規格開立。技術實作亮點包含：
+                                <ul class="ps-3 mt-1 mb-0">
+                                    <li>以<strong>資料表自我關聯 (Self-Referencing)</strong> 結合遞迴演算法，解決多階層圖書分類與動態麵包屑導航。</li>
+                                    <li>獨立整合<strong>綠界金流 (ECPay) 驗簽機制與交易庫存同步扣減</strong>，確保訂單與帳務一致性。</li>
+                                    <li>串接 <strong>Google Gemini AI 智慧選書推薦</strong>，並建立完整會員評論與 RBAC 權限控管系統。</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <strong>個人專案《Smart Coffee System 智慧咖啡廳 POS 與後端管理系統》（獨立開發）</strong>：以
+                                <code>C# WinForms + ADO.NET / EF + LINQ + MS SQL Server</code>
+                                實作桌上型管理系統。落實客製化飲品動態計價、會員紅利折抵與 RBAC
+                                權限隔離，並運用資料庫 Transaction 交易機制與外鍵防呆驗證，確保高頻結帳時庫存扣減的安全與一致性。
+                            </li>
+                        </ul>
+
+                        <p class="mb-0">
+                            <strong>三、未來展望：兼具全端開發實力與跨職能溝通價值的即戰力</strong><br>
+                            過去 6 年主導大型科技展會與政府數位轉型標案（曾獲數位發展部全國亞軍）的歷練，培養出我敏銳的需求拆解能力、嚴謹的時程控管意識與跨部門溝通手腕。進入開發團隊後，我不僅能以紮實的 C#
+                            .NET
+                            與前端技術交付穩定功能，更能快速同理 PM、業務與客戶端的業務情境，將商業邏輯精準轉化為清晰、具擴充性且可維護的程式碼，成為團隊中即戰力與溝通兼具的工程夥伴。
+                        </p>
+                    </div>
+                </section>
+                <!-- 歷年數位科技與跨領域專案摘要 -->
+                <section>
+                    <h2 class="section-title"><i class="bi bi-journal-check"></i> 歷年系統開發與數位科技專案實績摘要</h2>
+                    <table class="table table-sm table-bordered mb-0" style="font-size: 11.5px;">
+                        <thead class="table-light">
+                            <tr>
+                                <th style="width: 16%;">期間</th>
+                                <th style="width: 46%;">專案／系統名稱</th>
+                                <th style="width: 16%;">擔任角色</th>
+                                <th style="width: 22%;">技術應用與專案成果</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2026</td>
+                                <td>《書嶼 BookISLE》前後端分離線上書店電商平台</td>
+                                <td><span class="badge bg-primary">專題組長 / 全端</span></td>
+                                <td>Vue 3 + .NET Core API / ECPay / Gemini AI</td>
+                            </tr>
+                            <tr>
+                                <td>2026</td>
+                                <td>《Smart Coffee System》POS 收銀與後台營運系統</td>
+                                <td><span class="badge bg-primary">獨立全端開發</span></td>
+                                <td>C# WinForms + EF / ADO.NET + MSSQL</td>
+                            </tr>
+                            <tr>
+                                <td>2023 ~ 2026</td>
+                                <td>高雄智慧城市展 (KSCSE) 暨 2025 展期活動網站維護</td>
+                                <td><span class="badge bg-primary">網站維護 / 企劃</span></td>
+                                <td>ASP.NET MVC + MSSQL / 累計 5萬+ 參觀人次</td>
+                            </tr>
+                            <tr>
+                                <td>2022</td>
+                                <td>數位發展部創業歸故里競賽 — 古坑桌球村（智慧科技培訓場域）</td>
+                                <td><span class="badge bg-secondary">主企劃</span></td>
+                                <td>全國 104 隊中榮獲<strong>全國亞軍</strong>、<strong>服務推廣獎</strong></td>
+                            </tr>
+                            <tr>
+                                <td>2022</td>
+                                <td>經濟部中小企業處數位群聚計畫 — 雲遊斗南</td>
+                                <td><span class="badge bg-secondary">行銷企劃</span></td>
+                                <td>導入數位行銷工具與跨產業數位轉型</td>
+                            </tr>
+                            <tr>
+                                <td>2019 ~ 2021</td>
+                                <td>經濟部 SBIR 科技數位旅遊計畫 ＆ 雲林智慧農業大學計畫</td>
+                                <td><span class="badge bg-secondary">研究員 / 協辦</span></td>
+                                <td>碩士期間數位旅遊服務規劃與科技導入研究</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 設定作品集與專題網址 Modal (動態更新 QR Code) -->
+    <div class="modal fade no-print" id="qrModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-dark text-white py-2">
+                    <h6 class="modal-title fw-bold"><i class="bi bi-qr-code me-2"></i>更新 GitHub 與專題網址（即時產生向量 QR Code）
+                    </h6>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body small">
+                    <p class="text-muted mb-3">
+                        修改下方網址後點擊「套用」，履歷上的連結與向量 QR Code 將自動即時更新。
+                    </p>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">1. 個人履歷 GitHub 網址</label>
+                        <input type="text" class="form-control form-control-sm" id="inputResumeUrl"
+                            value="https://github.com/sheng118137/Resume">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">2. 團隊專題《書嶼 BookISLE》網址</label>
+                        <input type="text" class="form-control form-control-sm" id="inputProject1Url"
+                            value="https://github.com/sheng118137/BookISLE">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label fw-bold">3. 個人專題《Smart Coffee System》網址</label>
+                        <input type="text" class="form-control form-control-sm" id="inputProject2Url"
+                            value="https://github.com/sheng118137/SmartCoffeeSystem">
+                    </div>
+                </div>
+                <div class="modal-footer py-2">
+                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-sm btn-primary fw-bold" onclick="applyCustomUrls()"
+                        data-bs-dismiss="modal">套用並更新 QR Code</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // 產生純 SVG 向量 QR Code，確保列印與轉存 PDF 100% 清晰且無跨域問題
+        function renderSvgQrCode(elementId, url) {
+            const container = document.getElementById(elementId);
+            if (!container || typeof qrcode === 'undefined') return;
+            try {
+                const qr = qrcode(0, 'M');
+                qr.addData(url);
+                qr.make();
+                container.innerHTML = qr.createSvgTag({
+                    cellSize: 2,
+                    margin: 0,
+                    scalable: true
+                });
+            } catch (err) {
+                console.error('QR Code generation error:', err);
+            }
+        }
+
+        // 簡化網址顯示文字 (去除 https://)
+        function formatDisplayUrl(url) {
+            return url.replace(/^https?:\/\//i, '').replace(/\/$/, '');
+        }
+
+        // 套用自訂網址並同步更新連結與 QR Code
+        function applyCustomUrls() {
+            const resumeUrl = document.getElementById('inputResumeUrl').value.trim() || 'https://github.com/sheng118137/Resume';
+            const proj1Url = document.getElementById('inputProject1Url').value.trim() || 'https://github.com/sheng118137/BookISLE';
+            const proj2Url = document.getElementById('inputProject2Url').value.trim() || 'https://github.com/sheng118137/SmartCoffeeSystem';
+
+            const headerGithub = document.getElementById('headerGithubLink');
+            const sidebarGithub = document.getElementById('sidebarGithubLink');
+            const linkProj1 = document.getElementById('linkProject1');
+            const linkProj2 = document.getElementById('linkProject2');
+
+            headerGithub.href = resumeUrl;
+            headerGithub.textContent = formatDisplayUrl(resumeUrl);
+            sidebarGithub.href = resumeUrl;
+            sidebarGithub.textContent = formatDisplayUrl(resumeUrl);
+
+            linkProj1.href = proj1Url;
+            linkProj2.href = proj2Url;
+
+            renderSvgQrCode('qrResume', resumeUrl);
+            renderSvgQrCode('qrProject1', proj1Url);
+            renderSvgQrCode('qrProject2', proj2Url);
+        }
+
+        // 調整螢幕預覽縮放比例 (不影響實際 A4 列印)
+        function setZoom(scale) {
+            const root = document.getElementById('resumeRoot');
+            const btn100 = document.getElementById('zoom100');
+            const btn85 = document.getElementById('zoom85');
+            if (scale === 1) {
+                root.style.transform = 'none';
+                btn100.classList.add('active');
+                btn85.classList.remove('active');
+            } else {
+                root.style.transform = `scale(${scale})`;
+                btn85.classList.add('active');
+                btn100.classList.remove('active');
+            }
+        }
+
+        // 切換單頁標準版 / 雙頁含自傳版
+        function setPageMode(mode) {
+            const body = document.body;
+            const btnSingle = document.getElementById('btnSinglePage');
+            const btnTwo = document.getElementById('btnTwoPage');
+
+            if (mode === 'single') {
+                body.classList.remove('mode-two-page');
+                body.classList.add('mode-single-page');
+                btnSingle.className = 'btn btn-light fw-bold text-dark';
+                btnTwo.className = 'btn btn-outline-light';
+            } else {
+                body.classList.remove('mode-single-page');
+                body.classList.add('mode-two-page');
+                btnTwo.className = 'btn btn-light fw-bold text-dark';
+                btnSingle.className = 'btn btn-outline-light';
+            }
+        }
+
+        // 即時預覽使用者選取的本地大頭照
+        function handleAvatarUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('avatarImg').src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // 直接下載 PDF 檔案 (使用 html2pdf.js，精準控制頁數不產生空白頁)
+        async function downloadDirectPDF() {
+            const btn = document.getElementById('btnDownloadPdf');
+            const originalHtml = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>產生 PDF 中...';
+
+            const isSinglePage = document.body.classList.contains('mode-single-page');
+            const page1 = document.getElementById('page-1');
+            const page2 = document.getElementById('page-2');
+            const root = document.getElementById('resumeRoot');
+
+            const prevRootStyle = root.getAttribute('style') || '';
+            const prevP1Style = page1.getAttribute('style') || '';
+            const prevP2Style = page2.getAttribute('style') || '';
+
+            root.style.padding = '0';
+            root.style.gap = '0';
+            root.style.transform = 'none';
+            root.style.background = '#ffffff';
+
+            [page1, page2].forEach(p => {
+                p.style.width = '210mm';
+                p.style.height = '296.5mm';
+                p.style.minHeight = '296.5mm';
+                p.style.maxHeight = '296.5mm';
+                p.style.boxShadow = 'none';
+                p.style.borderRadius = '0';
+                p.style.margin = '0';
+            });
+
+            const targetElement = isSinglePage ? page1 : root;
+            const filename = isSinglePage ? '廖英盛_全端工程師履歷_A4.pdf' : '廖英盛_全端工程師履歷_含自傳A4.pdf';
+
+            const opt = {
+                margin: 0,
+                filename: filename,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: {
+                    scale: 2,
+                    useCORS: true,
+                    letterRendering: true,
+                    scrollY: 0
+                },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                pagebreak: { mode: ['css'] }
+            };
+
+            try {
+                await html2pdf().set(opt).from(targetElement).save();
+            } catch (err) {
+                console.error(err);
+                window.print();
+            } finally {
+                root.setAttribute('style', prevRootStyle);
+                page1.setAttribute('style', prevP1Style);
+                page2.setAttribute('style', prevP2Style);
+                btn.disabled = false;
+                btn.innerHTML = originalHtml;
+            }
+        }
+
+        // 初始化 QR Codes
+        window.addEventListener('DOMContentLoaded', () => {
+            applyCustomUrls();
+        });
+    </script>
+</body>
+
+</html>
