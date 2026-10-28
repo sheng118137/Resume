@@ -40,7 +40,7 @@
 
 ## 💻 代表軟體開發專題 (Featured Projects)
 
-### 1. 📚 [書嶼 BookISLE — 前後端分離線上書店電商平台](https://github.com/sheng118137/BookISLE)
+### 1. [書嶼 BookISLE — 前後端分離線上書店電商平台](https://github.com/sheng118137/BookISLE)
 - **擔任角色**：團隊專題組長 ＆ 核心架構開發
 - **使用技術**：`Vue 3 (Vite / Pinia)`、`ASP.NET Core MVC & Web API`、`EF Core`、`MS SQL Server`、`Google Gemini API`、`綠界金流 (ECPay)`
 - **核心實作亮點**：
@@ -49,7 +49,7 @@
   - **第三方金流驗簽與交易一致性**：串接**綠界金流 (ECPay)** 刷卡流程與 Server 端回傳驗簽機制，確保付款授權成功後自動更新訂單狀態並精準扣減庫存。
   - **AI 智慧客服與評論權限控管**：整合 **Google Gemini API** 實作自然語言找書推薦與即時訂單查詢客服；開發商品 CRUD 模組、登入限定評論驗證與後台精選管理功能。
 
-### 2. ☕ [Smart Coffee System — 咖啡廳 POS 與後台營運管理系統](https://github.com/sheng118137/SmartCoffeeSystem)
+### 2. [Smart Coffee System — 咖啡廳 POS 與後台營運管理系統](https://github.com/sheng118137/SmartCoffeeSystem)
 - **擔任角色**：個人專題（獨立全端開發）
 - **使用技術**：`C#`、`WinForms`、`Entity Framework`、`ADO.NET`、`LINQ`、`MS SQL Server`
 - **核心實作亮點**：
